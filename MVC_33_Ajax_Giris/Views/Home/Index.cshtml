@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("Hesapla", "Home", FormMethod.Post))
+{
+    @Html.TextBox("sayi1")
+    <br />
+    @Html.TextBox("sayi2")
+    <br />
+    <input type="submit" value="Hesapla" />
+}
+
+
+
+@Html.TextBox("sayi_1")
+<br />
+@Html.TextBox("sayi_2")
+<br />
+<label id="sonuc"></label>
+<input type="button" id="tikla" value="Ajaxla_Hesapla" />
+
+<!-- JQuery ile Ajax kullanımı -->
+@section script {
+<script>
+    $(document).ready(function () {
+        $('#tikla').click(function () {
+            var s1 = $('#sayi_1').val()
+            var s2 = $('#sayi_2').val()
+            $.ajax({
+                url: 'http://localhost:52049/Home/AjaxHesapla',
+                data: { sayi1:s1, sayi2:s2 },
+                type: 'post',
+                success: function (gelenSonuc) {
+                    // debugger
+                    $('#sonuc').text(gelenSonuc)
+                }
+                
+            })
+        })
+    })
+</script>
+}
